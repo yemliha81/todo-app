@@ -10,11 +10,17 @@ services:
             - pgdata:/var/lib/postgresql/data
         ports:
             - "5432:5432"
-    web:
+    backend:
         image: yemliha/node-postgres
         depends_on:
             - db
         ports:
             - "4000:4000"
+    frontend:
+        image: vuejs/dockerize-todo-app
+        depends_on:
+            - backend
+        ports:
+            - "8080:8080"
 volumes:
     pgdata:
