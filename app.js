@@ -1,8 +1,15 @@
+const env = "production";
+let db = "localhost";
 const express = require('express');
 const bodyParser = require("body-parser");
 const path = require('path');
 const { Client } = require('pg');
-const connectionString = 'postgres://postgres:postgres@db:5432/nodejs';
+if(env == "dev"){
+    db = 'localhost';
+}else{
+    db = 'db';
+}
+const connectionString = 'postgres://postgres:postgres@'+db+':5432/nodejs'
 const client = new Client({
     connectionString: connectionString
 });
@@ -92,3 +99,6 @@ app.get('/delTask/:id', function (req, res, next) {
 app.listen(4000, function () {
     console.log('Server is running.. on Port 4000');
 });
+
+
+module.exports = app
